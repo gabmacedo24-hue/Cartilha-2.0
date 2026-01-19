@@ -11,184 +11,160 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap');
-        
         :root { --gold: #C5A059; }
         body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         .font-serif { font-family: 'Playfair Display', serif; }
         .bg-gold { background-color: var(--gold); }
         .text-gold { color: var(--gold); }
-        .border-gold { border-color: var(--gold); }
-        
-        /* Essencial para não mostrar componentes quebrados antes do JS carregar */
         [x-cloak] { display: none !important; }
-
-        /* Garante que o FAQ tenha uma transição suave */
-        .faq-content { transition: all 0.3s ease-out; }
     </style>
 
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        gold: '#C5A059',
-                        black: '#1A1A1A',
-                        grayLight: '#F5F5F5',
-                        grayDark: '#3A3A3A',
-                    }
-                }
-            }
+            theme: { extend: { colors: { gold: '#C5A059', black: '#1A1A1A' } } }
         }
     </script>
 </head>
-<body class="bg-grayLight text-gray-900" x-data="{ scrolled: false, mobileMenu: false, activeFaq: null }" @scroll.window="scrolled = (window.pageYOffset > 50)">
+<body class="bg-[#F5F5F5] text-gray-900" x-data="{ scrolled: false, mobileMenu: false, activeFaq: null }" @scroll.window="scrolled = (window.pageYOffset > 50)">
 
     <header :class="scrolled ? 'bg-white shadow-lg py-3' : 'bg-transparent py-6'" class="fixed top-0 left-0 w-full z-50 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-            <div class="cursor-pointer border-2 border-gold rounded-full w-10 h-10 flex items-center justify-center" @click="window.scrollTo({top: 0, behavior: 'smooth'})">
-                <span class="font-serif text-gold text-sm tracking-tighter">GM</span>
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center text-[10px] uppercase tracking-widest font-medium">
+            <div class="border-2 border-gold rounded-full w-10 h-10 flex items-center justify-center cursor-pointer" @click="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <span class="font-serif text-gold">GM</span>
             </div>
-            
-            <nav class="hidden md:flex gap-8 text-[10px] uppercase tracking-[0.2em] font-medium" :class="scrolled ? 'text-black' : 'text-white'">
+            <nav class="hidden md:flex gap-8" :class="scrolled ? 'text-black' : 'text-white'">
                 <a href="#pilares" class="hover:text-gold transition-colors">Pilares</a>
                 <a href="#deveres" class="hover:text-gold transition-colors">Deveres</a>
                 <a href="#faq" class="hover:text-gold transition-colors">FAQ</a>
                 <a href="#checklist" class="hover:text-gold transition-colors">Checklist</a>
                 <a href="#contato" class="hover:text-gold transition-colors">Contato</a>
             </nav>
-
             <button class="md:hidden" @click="mobileMenu = true">
                 <i data-lucide="menu" :class="scrolled ? 'text-black' : 'text-white'"></i>
             </button>
         </div>
-
-        <div x-show="mobileMenu" 
-             x-transition.opacity
-             x-cloak 
-             class="fixed inset-0 bg-black z-[60] flex flex-col items-center justify-center gap-8">
-            <button @click="mobileMenu = false" class="absolute top-6 right-6 text-gold">
-                <i data-lucide="x" class="w-10 h-10"></i>
-            </button>
-            <a href="#pilares" @click="mobileMenu = false" class="text-white text-2xl font-serif tracking-widest hover:text-gold">PILARES</a>
-            <a href="#deveres" @click="mobileMenu = false" class="text-white text-2xl font-serif tracking-widest hover:text-gold">DEVERES</a>
-            <a href="#faq" @click="mobileMenu = false" class="text-white text-2xl font-serif tracking-widest hover:text-gold">FAQ</a>
-            <a href="#checklist" @click="mobileMenu = false" class="text-white text-2xl font-serif tracking-widest hover:text-gold">CHECKLIST</a>
-            <a href="#contato" @click="mobileMenu = false" class="text-white text-2xl font-serif tracking-widest hover:text-gold">CONTATO</a>
-        </div>
     </header>
 
-    <section class="min-h-screen flex items-center justify-center p-8 text-center bg-black">
-        <div class="border border-gold border-opacity-30 p-10 md:p-24 relative">
-            <div class="border-2 border-gold rounded-full w-24 h-24 mx-auto mb-8 flex items-center justify-center">
-                <span class="font-serif text-gold text-4xl">GM</span>
-            </div>
+    <div x-show="mobileMenu" x-cloak class="fixed inset-0 bg-black z-[60] flex flex-col items-center justify-center gap-8 text-white font-serif tracking-widest text-2xl">
+        <button @click="mobileMenu = false" class="absolute top-6 right-6 text-gold"><i data-lucide="x" class="w-10 h-10"></i></button>
+        <a href="#pilares" @click="mobileMenu = false">PILARES</a>
+        <a href="#deveres" @click="mobileMenu = false">DEVERES</a>
+        <a href="#faq" @click="mobileMenu = false">FAQ</a>
+        <a href="#checklist" @click="mobileMenu = false">CHECKLIST</a>
+        <a href="#contato" @click="mobileMenu = false">CONTATO</a>
+    </div>
+
+    <section class="min-h-screen flex items-center justify-center p-8 text-center bg-black text-white">
+        <div class="border border-gold/30 p-12 md:p-24">
             <h2 class="uppercase tracking-[0.4em] text-xs mb-6 text-gold">Consultoria Jurídica Estratégica</h2>
-            <h1 class="text-4xl md:text-6xl font-serif mb-8 text-white leading-tight">
-                Cartilha de Obrigações do <br>
-                <span class="text-gold italic">Locador e do Locatário</span>
-            </h1>
-            <p class="text-gray-400 italic max-w-xl mx-auto mb-12 text-lg font-light leading-relaxed">
-                Diretrizes técnicas para a governança e segurança das relações locatícias urbanas.
-            </p>
-            <div class="h-px w-24 mx-auto mb-10 bg-gold"></div>
+            <h1 class="text-4xl md:text-6xl font-serif mb-8 leading-tight">Cartilha de Obrigações do <br><span class="text-gold italic">Locador e do Locatário</span></h1>
+            <p class="text-gray-400 italic max-w-xl mx-auto mb-12 text-lg font-light">Diretrizes técnicas para a governança e segurança das relações locatícias urbanas.</p>
             <p class="text-white tracking-[0.2em] uppercase font-serif text-xl">Dra. Gabriela Macedo</p>
         </div>
     </section>
 
-    <section id="pilares" class="max-w-4xl mx-auto py-32 px-6">
-        <div class="flex flex-col md:flex-row gap-16 items-start">
-            <i data-lucide="scale" class="text-gold w-20 h-20 flex-shrink-0"></i>
-            <div>
-                <h2 class="text-3xl font-serif mb-8 text-black border-b-2 border-gold pb-4 inline-block">O Equilíbrio da Relação Contratual</h2>
-                <p class="text-gray-600 leading-relaxed text-lg text-justify font-light">
-                    A estabilidade nas relações imobiliárias reside na clareza do pactuado e na observância estrita das normas vigentes. Uma locação bem estruturada é aquela onde as partes compreendem seus limites e responsabilidades antes mesmo da entrega das chaves.
-                    <br><br>
-                    Este material possui <strong>caráter estritamente informativo e preventivo</strong>, desenhado para oferecer um panorama técnico das relações locatícias sob a ótica da Lei Federal nº 8.245/91.
-                </p>
+    <section id="pilares" class="py-24 px-6 max-w-6xl mx-auto">
+        <h2 class="text-3xl font-serif text-center mb-16 uppercase tracking-widest">Os Pilares da Locação</h2>
+        <div class="grid md:grid-cols-3 gap-12">
+            <div class="text-center">
+                <i data-lucide="shield-check" class="mx-auto mb-6 text-gold w-12 h-12"></i>
+                <h3 class="font-serif text-xl mb-4">Segurança Jurídica</h3>
+                <p class="text-gray-600 font-light">Contratos estruturados sob a Lei 8.245/91 para mitigar riscos e evitar litígios desnecessários.</p>
+            </div>
+            <div class="text-center">
+                <i data-lucide="balance" class="mx-auto mb-6 text-gold w-12 h-12"></i>
+                <h3 class="font-serif text-xl mb-4">Equilíbrio Contratual</h3>
+                <p class="text-gray-600 font-light">Clareza nas obrigações para que ambas as partes mantenham uma relação saudável e transparente.</p>
+            </div>
+            <div class="text-center">
+                <i data-lucide="file-text" class="mx-auto mb-6 text-gold w-12 h-12"></i>
+                <h3 class="font-serif text-xl mb-4">Vistoria Técnica</h3>
+                <p class="text-gray-600 font-light">O documento mais importante para garantir a devolução do imóvel no estado em que foi entregue.</p>
             </div>
         </div>
     </section>
 
-    <section id="deveres" class="py-28 px-6 bg-white">
+    <section id="deveres" class="py-24 bg-white px-6">
         <div class="max-w-6xl mx-auto">
-            <div class="flex items-center gap-5 mb-16">
-                <i data-lucide="home" class="text-gold w-10 h-10"></i>
-                <h2 class="text-3xl font-serif uppercase tracking-[0.2em]">Deveres do Locador</h2>
-            </div>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="p-8 border-l-4 border-gold shadow-sm hover:shadow-md transition-all">
-                    <h3 class="font-serif text-lg font-bold mb-2">Habitabilidade</h3>
-                    <p class="font-light text-gray-600">Entregar o imóvel em pleno estado de servir ao uso. Redes elétricas e hidráulicas funcionais.</p>
+            <h2 class="text-3xl font-serif mb-12 border-l-4 border-gold pl-6">Deveres do Locador</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-6 bg-[#F9F9F9] rounded-lg">
+                    <h4 class="font-bold mb-2">Estado de Habitabilidade</h4>
+                    <p class="text-sm text-gray-600">Entregar o imóvel em condições de uso e garantir a sua posse pacífica durante a locação.</p>
                 </div>
-                <div class="p-8 border-l-4 border-gold shadow-sm hover:shadow-md transition-all">
-                    <h3 class="font-serif text-lg font-bold mb-2">Extraordinários</h3>
-                    <p class="font-light text-gray-600">Arcar com custos que valorizam o edifício: pinturas de fachada e fundos de reserva.</p>
-                </div>
-                <div class="p-8 border-l-4 border-gold shadow-sm hover:shadow-md transition-all">
-                    <h3 class="font-serif text-lg font-bold mb-2">Vícios Ocultos</h3>
-                    <p class="font-light text-gray-600">Responsabilidade por problemas anteriores à locação não detectados na vistoria inicial.</p>
+                <div class="p-6 bg-[#F9F9F9] rounded-lg">
+                    <h4 class="font-bold mb-2">Despesas Extraordinárias</h4>
+                    <p class="text-sm text-gray-600">Custear reformas estruturais, pintura de fachada e fundo de reserva do condomínio.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="faq" class="py-32 px-6 bg-gray-50">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-serif uppercase tracking-widest">FAQ Estratégico</h2>
+    <section class="py-24 bg-white px-6 pt-0">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-3xl font-serif mb-12 border-l-4 border-black pl-6">Deveres do Locatário</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="p-6 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold mb-2">Pagamento Pontual</h4>
+                    <p class="text-sm text-gray-600">Quitar o aluguel e encargos (IPTU, Condomínio) no prazo estipulado no contrato.</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold mb-2">Manutenção e Zelo</h4>
+                    <p class="text-sm text-gray-600">Cuidar do imóvel como se fosse seu e realizar reparações de danos causados por si ou terceiros.</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold mb-2">Uso Destinado</h4>
+                    <p class="text-sm text-gray-600">Utilizar o imóvel apenas para o fim acordado (residencial ou comercial), sem alterações estruturais sem vênia.</p>
+                </div>
+                <div class="p-6 bg-gray-100 rounded-lg">
+                    <h4 class="font-bold mb-2">Restituição do Imóvel</h4>
+                    <p class="text-sm text-gray-600">Devolver o imóvel no estado em que o recebeu, conforme o relatório de vistoria inicial.</p>
+                </div>
             </div>
-            
+        </div>
+    </section>
+
+    <section id="faq" class="py-24 bg-gray-50 px-6">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-serif text-center mb-12 uppercase tracking-widest text-gold">FAQ Estratégico</h2>
             <div class="space-y-4">
-                <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden">
-                    <button @click="activeFaq = (activeFaq === 1 ? null : 1)" class="w-full p-6 text-left flex justify-between items-center transition-colors hover:bg-gray-50">
-                        <span class="font-serif text-lg">O proprietário pode entrar no imóvel sem aviso?</span>
-                        <i data-lucide="chevron-down" class="text-gold transition-transform duration-300" :class="activeFaq === 1 ? 'rotate-180' : ''"></i>
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                    <button @click="activeFaq = (activeFaq === 1 ? null : 1)" class="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+                        <span class="font-medium">O proprietário pode entrar no imóvel sem aviso?</span>
+                        <i data-lucide="chevron-down" class="text-gold transition-transform" :class="activeFaq === 1 ? 'rotate-180' : ''"></i>
                     </button>
-                    <div x-show="activeFaq === 1" x-collapse x-cloak class="p-6 pt-0 text-gray-600 italic border-t border-gray-50 bg-white">
+                    <div x-show="activeFaq === 1" x-cloak class="p-6 pt-0 text-gray-600 italic border-t border-gray-50">
                         Não. O ingresso depende de consentimento expresso ou aviso prévio marcado, respeitando a privacidade do locatário.
                     </div>
                 </div>
-
-                <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden">
-                    <button @click="activeFaq = (activeFaq === 2 ? null : 2)" class="w-full p-6 text-left flex justify-between items-center transition-colors hover:bg-gray-50">
-                        <span class="font-serif text-lg">A pintura nova é obrigatória na entrega?</span>
-                        <i data-lucide="chevron-down" class="text-gold transition-transform duration-300" :class="activeFaq === 2 ? 'rotate-180' : ''"></i>
+                <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
+                    <button @click="activeFaq = (activeFaq === 2 ? null : 2)" class="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 transition-colors">
+                        <span class="font-medium">A pintura nova é obrigatória na entrega?</span>
+                        <i data-lucide="chevron-down" class="text-gold transition-transform" :class="activeFaq === 2 ? 'rotate-180' : ''"></i>
                     </button>
-                    <div x-show="activeFaq === 2" x-collapse x-cloak class="p-6 pt-0 text-gray-600 italic border-t border-gray-50 bg-white">
-                        A lei prevê a devolução no estado em que recebeu, ressalvado o uso normal. Exigir pintura nova requer cláusula contratual clara.
+                    <div x-show="activeFaq === 2" x-cloak class="p-6 pt-0 text-gray-600 italic border-t border-gray-50">
+                        A lei prevê a devolução no estado em que recebeu. Exigir pintura nova requer cláusula contratual específica e clara.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contato" class="py-32 px-6 text-center bg-black text-white">
-        <div class="max-w-5xl mx-auto">
-            <div class="border-2 border-gold rounded-full w-16 h-16 mx-auto mb-8 flex items-center justify-center">
-                <span class="font-serif text-gold text-2xl">GM</span>
-            </div>
-            <h2 class="text-3xl font-serif mb-8 uppercase tracking-[0.4em]">Dra. Gabriela Macedo</h2>
+    <footer id="contato" class="py-24 bg-black text-white text-center px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="border-2 border-gold rounded-full w-16 h-16 mx-auto mb-8 flex items-center justify-center font-serif text-gold text-2xl">GM</div>
+            <h2 class="text-3xl font-serif mb-4 uppercase tracking-widest">Dra. Gabriela Macedo</h2>
             <p class="text-gray-400 mb-12 font-light">OAB/SP 520.862 | Advocacia Imobiliária Estratégica</p>
-            
-            <div class="flex flex-col md:flex-row justify-center gap-10 items-center border-y border-gray-800 py-10">
-                <a href="https://wa.me/5511999325205" class="flex items-center gap-3 hover:text-gold transition-colors">
-                    <i data-lucide="message-circle" class="text-gold"></i> (11) 99932-5205
-                </a>
-                <a href="mailto:gabrielamacedo.adv@outlook.com" class="flex items-center gap-3 hover:text-gold transition-colors lowercase">
-                    <i data-lucide="mail" class="text-gold"></i> gabrielamacedo.adv@outlook.com
-                </a>
-                <a href="https://instagram.com/gabrielamacedo.adv" class="flex items-center gap-3 hover:text-gold transition-colors">
-                    <i data-lucide="instagram" class="text-gold"></i> @gabrielamacedo.adv
-                </a>
+            <div class="flex flex-col md:flex-row justify-center gap-8 border-t border-white/10 pt-10 text-sm">
+                <a href="https://wa.me/5511999325205" class="hover:text-gold transition-colors flex items-center justify-center gap-2"><i data-lucide="message-circle" class="w-4 h-4"></i> (11) 99932-5205</a>
+                <a href="mailto:gabrielamacedo.adv@outlook.com" class="hover:text-gold transition-colors flex items-center justify-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i> gabrielamacedo.adv@outlook.com</a>
+                <a href="https://instagram.com/gabrielamacedo.adv" class="hover:text-gold transition-colors flex items-center justify-center gap-2"><i data-lucide="instagram" class="w-4 h-4"></i> @gabrielamacedo.adv</a>
             </div>
         </div>
     </footer>
 
     <script>
-        // Garante que os ícones carreguem após o DOM estar pronto
-        document.addEventListener('DOMContentLoaded', () => {
-            lucide.createIcons();
-        });
+        document.addEventListener('DOMContentLoaded', () => { lucide.createIcons(); });
     </script>
 </body>
 </html>
